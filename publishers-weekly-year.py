@@ -34,6 +34,7 @@ def download(year, month, day):
         
         #Move to next page if page already downloaded
         if os.path.isfile(filename):
+            merger.append(filename) #add page to merger
             print(iso_date, page_number, 'PAGE ALREADY DOWNLOADED')
             page_number+=1
             continue
@@ -63,6 +64,7 @@ def download(year, month, day):
     #Output
     if page_number <= MAX_PAGES:
         merger.write(f'{iso_date}.pdf') #entire pdf
+        merger.close()
         print(f'{iso_date} COMPLETE.')
 
         #Delete temp files because you have the full file downloaded.
@@ -71,9 +73,8 @@ def download(year, month, day):
         print(f'{iso_date} DELETED INDIVIDUAL PAGE PDFS')
     else:
         merger.write(f'{iso_date}--PARTIAL.pdf') #pdf was too long. output partial
+        merger.close()
         print(f'{iso_date} PARTIAL COMPLETE.')
-        
-    merger.close()
     
     print('NEXT\n\n')
 
