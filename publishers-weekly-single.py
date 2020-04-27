@@ -26,6 +26,7 @@ def download(year, month, day):
 
     #Exit early if Issue already downloaded
     if os.path.isfile(f'{iso_date}.pdf'):
+        merger.append(filename) #add page to merger
         print(iso_date, 'ISSUE ALREADY DOWNLOADED')
         return
         
@@ -60,17 +61,17 @@ def download(year, month, day):
     #Output
     if page_number <= MAX_PAGES:
         merger.write(f'{iso_date}.pdf') #entire pdf
+        merger.close()
         print(f'{iso_date} COMPLETE.')
+
+        #Delete temp files because you have the full file downloaded.
+        for i in range(1, page_number):
+            os.remove(f'{iso_date}--{i}.pdf')
+        print(f'{iso_date} DELETED INDIVIDUAL PAGE PDFS')
     else:
         merger.write(f'{iso_date}--PARTIAL.pdf') #pdf was too long. output partial
+        merger.close()
         print(f'{iso_date} PARTIAL COMPLETE.')
-        
-    merger.close()
-
-    #Delete temp files
-    for i in range(1, page_number):
-        os.remove(f'{iso_date}--{i}.pdf')
-    print(f'{iso_date} DUMPED INDIVIDUAL PAGE PDFS')
 
 def main():
     print(f'INDIVIDUAL YEAR SCRAPE')
