@@ -1,5 +1,7 @@
 # publishers-weekly-archive
-Scripts for scraping PDFs off the Publishers Weekly archive site.
+Scripts for scraping PDFs off the *Publishers Weekly* archive site.
+
+Requirements: Python 3.7+, [requests](https://2.python-requests.org/en/master/), [PyPDF2](https://pythonhosted.org/PyPDF2/). (Python 3.6 should also work because the most advanced feature is f-strings.)
 
 They use global variables for configuration.
 
